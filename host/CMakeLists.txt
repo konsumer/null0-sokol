@@ -1,4 +1,7 @@
+find_package(sokol REQUIRED)
+
 add_executable(${PROJECT_NAME} src/main.c)
+target_link_libraries(${PROJECT_NAME} sokol)
 
 if (EMSCRIPTEN)
   target_link_options(${PROJECT_NAME} PUBLIC -sSINGLE_FILE -sUSE_WEBGL2=1 -sNO_FILESYSTEM=1)

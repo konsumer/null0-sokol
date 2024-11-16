@@ -1,3 +1,9 @@
+#include "sokol_gfx.h"
+#include "sokol_gp.h"
+#include "sokol_app.h"
+#include "sokol_glue.h"
+#include "sokol_log.h"
+
 #include <time.h>
 
 typedef struct {
