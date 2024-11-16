@@ -6,11 +6,14 @@
 #include "sokol_gp.h"
 #include "sokol_gp_circle.h"
 #include "sokol_log.h"
+#include "cvector.h"
 
 typedef struct {
   unsigned int x;
   unsigned int y;
 } TestPoint;
+
+static cvector_vector_type(sg_image) images = NULL;
 
 static int null0_millis() {
   struct timespec now;
@@ -20,7 +23,9 @@ static int null0_millis() {
 }
 
 // get an image by id
-sg_image null0_get_image(unsigned int id) {}
+sg_image null0_get_image(unsigned int id) {
+  return images[id];
+}
 
 #ifdef EMSCRIPTEN
 #include "host_emscripten.h"
