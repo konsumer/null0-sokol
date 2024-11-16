@@ -99,7 +99,6 @@ test_bytes_in(unsigned int bytesPtr, unsigned int bytesLen) {
 // return some bytes from host
 unsigned int EMSCRIPTEN_KEEPALIVE test_bytes_out(unsigned int outLenPtr) {
   unsigned int outLen = 4;
-
   unsigned char bytes[] = {0, 1, 2, 3};
   return copy_to_cart(bytes, outLen);
 }
@@ -197,7 +196,8 @@ void EMSCRIPTEN_KEEPALIVE clear(void) { sgp_clear(); }
 
 // Draws points in a batch.
 void EMSCRIPTEN_KEEPALIVE
-draw_points(const sgp_point* points, unsigned int count) {
+draw_points(unsigned int  pointsPtr, unsigned int count) {
+  const sgp_point* points = copy_from_cart(pointsPtr, count * sizeof(sgp_point));
   sgp_draw_points(points, count);
 }
 
@@ -206,7 +206,8 @@ void EMSCRIPTEN_KEEPALIVE draw_point(float x, float y) { sgp_draw_point(x, y); }
 
 // Draws lines in a batch.
 void EMSCRIPTEN_KEEPALIVE
-draw_lines(const sgp_line* lines, unsigned int count) {
+draw_lines(unsigned int linesPtr, unsigned int count) {
+  const sgp_line* lines = copy_from_cart(linesPtr, count * sizeof(sgp_line));
   sgp_draw_lines(lines, count);
 }
 
@@ -217,25 +218,20 @@ void EMSCRIPTEN_KEEPALIVE draw_line(float ax, float ay, float bx, float by) {
 
 // Draws a strip of lines.
 void EMSCRIPTEN_KEEPALIVE
-draw_lines_strip(const sgp_point* points, unsigned int count) {
+draw_lines_strip(unsigned int  pointsPtr, unsigned int count) {
+  const sgp_point* points = copy_from_cart(pointsPtr, count * sizeof(sgp_point));
   sgp_draw_lines_strip(points, count);
 }
 
 // Draws triangles in a batch.
 void EMSCRIPTEN_KEEPALIVE
-draw_filled_triangles(const sgp_triangle* triangles, unsigned int count) {
+draw_filled_triangles(unsigned int trianglesPtr, unsigned int count) {
+  const sgp_triangle* triangles = copy_from_cart(trianglesPtr, count * sizeof(sgp_triangle));
   sgp_draw_filled_triangles(triangles, count);
 }
 
 // Draws a single triangle.
-void EMSCRIPTEN_KEEPALIVE draw_filled_triangle(
-    float ax,
-    float ay,
-    float bx,
-    float by,
-    float cx,
-    float cy
-) {
+void EMSCRIPTEN_KEEPALIVE draw_filled_triangle(float ax, float ay, float bx, float by, float cx, float cy) {
   sgp_draw_filled_triangle(ax, ay, bx, by, cx, cy);
 }
 
@@ -247,7 +243,8 @@ draw_filled_triangles_strip(const sgp_point* points, unsigned int count) {
 
 // Draws a batch of rectangles.
 void EMSCRIPTEN_KEEPALIVE
-draw_filled_rects(const sgp_rect* rects, unsigned int count) {
+draw_filled_rects(unsigned int rectsPtr, unsigned int count) {
+  const sgp_rect* rects = copy_from_cart(rectsPtr, count * sizeof(sgp_rect));
   sgp_draw_filled_rects(rects, count);
 }
 
@@ -257,18 +254,17 @@ void EMSCRIPTEN_KEEPALIVE draw_filled_rect(float x, float y, float w, float h) {
 }
 
 // Draws a batch textured rectangle, each from a source region.
-void EMSCRIPTEN_KEEPALIVE draw_textured_rects(
-    int channel,
-    const sgp_textured_rect* rects,
-    unsigned int count
-) {
+void EMSCRIPTEN_KEEPALIVE draw_textured_rects(int channel, unsigned int rectsPtr, unsigned int count) {
+  const sgp_textured_rect* rects = copy_from_cart(rectsPtr, count * sizeof(sgp_textured_rect));
   sgp_draw_textured_rects(channel, rects, count);
 }
 
 // Draws a single textured rectangle from a source region.
 void EMSCRIPTEN_KEEPALIVE
-draw_textured_rect(int channel, sgp_rect dest_rect, sgp_rect src_rect) {
-  sgp_draw_textured_rect(channel, dest_rect, src_rect);
+draw_textured_rect(int channel, unsigned int dest_rectPtr, unsigned int src_rectPtr) {
+  const sgp_rect* dest_rect = copy_from_cart(dest_rectPtr, sizeof(sgp_rect));
+  const sgp_rect* src_rect = copy_from_cart(src_rectPtr, sizeof(sgp_rect));
+  sgp_draw_textured_rect(channel, *dest_rect, *src_rect);
 }
 
 // Draws a single outlined circle.
