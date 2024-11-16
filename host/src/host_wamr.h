@@ -1,7 +1,14 @@
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "wasm_c_api.h"
 #include "wasm_export.h"
+
+static int null0_millis() {
+  struct timespec now;
+  timespec_get(&now, TIME_UTC);
+  return ((unsigned int)now.tv_sec) * 1000 + ((unsigned int)now.tv_nsec) / 1000000;
+}
 
 static char global_heap_buf[512 * 1024];
 static wasm_val_t func_args[2];

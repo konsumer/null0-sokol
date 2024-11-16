@@ -5,6 +5,9 @@
 
 static const int square_size = 150;
 
+Rect dest_rect;
+Rect src_rect;
+
 void update(int time) {
   set_color(0.1f, 0.1f, 0.1f, 1.0f);
   clear();
@@ -31,9 +34,7 @@ void update(int time) {
   set_color(r, g, 0.3f, 1.0f);
 
   rotate_at(t, 160, 120);
-  draw_filled_rect(
-      160 - (square_size / 2), 120 - (square_size / 2), square_size, square_size
-  );
+  draw_filled_rect(160 - (square_size / 2), 120 - (square_size / 2), square_size, square_size);
 }
 
 void load() {
@@ -60,6 +61,5 @@ void load() {
 }
 
 int main() {
-  printf("cart: Hello from cart main.\n");
   return 0;
 }

@@ -14,6 +14,7 @@ if (EMSCRIPTEN)
        "$<TARGET_FILE:${PROJECT_NAME}>"
        "${PROJECT_SOURCE_DIR}/docs/$<TARGET_FILE_NAME:${PROJECT_NAME}>")
 else()
+  find_package(stb REQUIRED)
   find_package(wamr REQUIRED)
   target_link_libraries(${PROJECT_NAME} wamr)
 endif()
