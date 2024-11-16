@@ -83,11 +83,11 @@ typedef struct {
 } TexturedRect;
 
 typedef enum {
-  SGP_BLENDMODE_NONE,     // No blending.
-  SGP_BLENDMODE_BLEND,    // Alpha blending.
-  SGP_BLENDMODE_ADD,      // Color add.
-  SGP_BLENDMODE_MOD,      // Color modulate.
-  SGP_BLENDMODE_MUL,      // Color multiply.
+  BLENDMODE_NONE,     // No blending.
+  BLENDMODE_BLEND,    // Alpha blending.
+  BLENDMODE_ADD,      // Color add.
+  BLENDMODE_MOD,      // Color modulate.
+  BLENDMODE_MUL,      // Color multiply.
 } BlendMode;
 
 // Saves current transform matrix, to be restored later with a pop.
