@@ -4,7 +4,7 @@
     <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/10213618" />
   </head>
   <body>
-    <p>Check console</p>
+    <canvas width="320" height="240" id="canvas"></canvas>
   </body>
   <script type="importmap">
     {
@@ -39,8 +39,12 @@
       return { exports, wasi_snapshot_preview1, exitCode }
     }
 
+    // TODO: I think the id is hardcoded in emscripten-layer, which will prevent multiple screens on 1 page
+    const canvas = document.getElementById('canvas')
+
+    const host = await setupHost({ canvas, arguments: ['whatever'] })
+
     const imports = { null0: {} }
-    const host = await setupHost({ arguments: ['whatever'] })
     for (const f of Object.keys(host)) {
       if (f !== '_main' && f[0] === '_') {
         imports.null0[f.substr(1)] = host[f]

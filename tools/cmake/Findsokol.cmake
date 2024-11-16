@@ -1,5 +1,5 @@
 FetchContent_Declare(sokol
-  URL https://github.com/floooh/sokol/archive/refs/heads/master.zip
+  URL https://github.com/floooh/sokol/archive/refs/tags/pre-bindings-cleanup.zip
 )
 FetchContent_MakeAvailable(sokol)
 include_directories(${sokol_SOURCE_DIR})

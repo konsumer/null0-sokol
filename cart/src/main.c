@@ -1,7 +1,40 @@
+#include <math.h>
 #include <stdio.h>
+
 #include "null0.h"
 
-void update(int time) {}
+static const int square_size = 150;
+
+void update(int time) {
+  set_color(0.1f, 0.1f, 0.1f, 1.0f);
+  clear();
+
+  // purple
+  set_color(0.4f, 0.4f, 1.0f, 1.0f);
+  draw_filled_circle(10, 10, 10);
+
+  // lightgreen
+  set_color(0.5f, 1.0f, 0.3f, 1.0f);
+  draw_filled_circle(310, 10, 10);
+
+  // orange
+  set_color(1.0f, 0.5f, 0.3f, 1.0f);
+  draw_filled_circle(10, 230, 10);
+
+  // yellow
+  set_color(0.8f, 0.8f, 0.0f, 1.0f);
+  draw_filled_circle(310, 230, 10);
+
+  float t = (float)time * 0.001;
+
+  float r = sinf(t) * 0.5 + 0.5, g = cosf(t) * 0.5 + 0.5;
+  set_color(r, g, 0.3f, 1.0f);
+
+  rotate_at(t, 160, 120);
+  draw_filled_rect(
+      160 - (square_size / 2), 120 - (square_size / 2), square_size, square_size
+  );
+}
 
 void load() {
   printf("cart: Hello from cart load.\n");
@@ -14,7 +47,10 @@ void load() {
 
   unsigned int len = 0;
   unsigned char* bytes = test_bytes_out(&len);
-  printf("cart: test_bytes_out (%u) - %u %u %u %u\n", len, bytes[0], bytes[1], bytes[2], bytes[3]);
+  printf(
+      "cart: test_bytes_out (%u) - %u %u %u %u\n", len, bytes[0], bytes[1],
+      bytes[2], bytes[3]
+  );
 
   TestPoint p = {100, 200};
   test_struct_in(&p);
