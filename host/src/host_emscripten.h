@@ -4,8 +4,8 @@
 
 #include "emscripten.h"
 
+// these 2 don't really do anything in emscripten
 int wasm_host_load(char* filename) { return 0; }
-
 void wasm_host_unload() {}
 
 EM_JS(void, wasm_host_update, (), {
