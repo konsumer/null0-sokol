@@ -14,10 +14,10 @@ typedef struct {
   unsigned int y;
 } TestPoint;
 
-static cvector_vector_type(sg_image) images = NULL;
+static cvector_vector_type(sg_image*) images = NULL;
 
 // get an image by id
-sg_image null0_get_image(unsigned int id) {
+sg_image* null0_get_image(unsigned int id) {
   return images[id];
 }
 
@@ -35,7 +35,9 @@ unsigned int null0_load_image(char* filename) {
   };
   sg_image image = sg_make_image(&img_desc);
   stbi_image_free(image_data);
-  cvector_push_back(images, image);
+  unsigned int id = cvector_size(images);
+  cvector_push_back(images, &image);
+  return id;
 }
 
 #ifdef EMSCRIPTEN

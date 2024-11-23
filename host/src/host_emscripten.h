@@ -178,7 +178,7 @@ void EMSCRIPTEN_KEEPALIVE reset_color() {
 
 // Sets current bound image in a texture channel.
 void EMSCRIPTEN_KEEPALIVE set_image(int channel, unsigned int image) {
-  sgp_set_image(channel, null0_get_image(image));
+  sgp_set_image(channel, *null0_get_image(image));
 }
 
 // Remove current bound image in a texture channel (no texture).

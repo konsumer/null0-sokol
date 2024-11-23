@@ -1,4 +1,5 @@
 find_package(sokol REQUIRED)
+find_package(stb REQUIRED)
 
 add_executable(${PROJECT_NAME} src/main.c)
 target_link_libraries(${PROJECT_NAME} sokol)
